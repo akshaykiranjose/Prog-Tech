@@ -94,34 +94,32 @@ void LinkedList<T>::insertOrdered(const T& newData) {
   }
 
   // non empty - front
-  else if (thru->data > newNode->data)
+  else if (head_->data > newData)
   {
+    Node* thru = head_;
     thru->prev = newNode;
     newNode->next = thru;
     head_ = newNode;
   }
-  
+
+  else if (tail_->data < newData)
+  {
+    Node* thru = tail_;
+    thru->next = newNode;
+    newNode->prev = thru;
+    tail_ = newNode;
+  }
+
   else
   {
-    while(thru->next && (thru->data < newNode->data))     thru = thru->next;
-  
-    // non-empty - middle
-    if(thru->next)
-    {
+    Node* thru = head_->next;
+    while(thru && thru->data < newData)      thru = thru->next;
+
+    newNode->prev = thru->prev;
     thru->prev->next = newNode;
     thru->prev = newNode;
-    
-    newNode->prev = thru->prev;
     newNode->next = thru;
-    }
 
-    // non-empty - back
-    else
-    {
-      thru->next = newNode;
-      newNode->prev = thru;
-      tail_ = newNode;
-    }
   }
 }
   // -----------------------------------------------------------
@@ -133,7 +131,7 @@ void LinkedList<T>::insertOrdered(const T& newData) {
   // go in the list. A good way to do this is by considering special
   // base cases first, then walk the list from front to back and find
   // the earliest position where you should insert the new node.
-  
+
   // When you insert the node, make sure to update any and all pointers
   // between it and adjacent nodes accordingly (next and prev pointers).
   // You may also need to update the head_ and tail_ pointers in some
@@ -143,13 +141,13 @@ void LinkedList<T>::insertOrdered(const T& newData) {
   // other provided code for this project!
 
   // More hints:
-  
+
   // First, practice your technique for traversing the list from front
   // to back. You can see examples of several ways to do this throughout
   // the provided code for this project. We recommend that you try using
   // a temporary pointer that you update to track your position as you
   // traverse from node to node.
-  
+
   // Consider all the cases that can happen when you're trying to insert
   // the new node. Is the list currently empty? Does the new node go
   // at the beginning? Does it go somewhere in the middle? Does it go
@@ -224,7 +222,7 @@ void LinkedList<T>::insertOrdered(const T& newData) {
   A correct implementation of this function has O(n) time complexity
   for a list of length n. That is, in the worst case, you would
   traverse each element of the list some constant number of times.
-  
+
   Important notes for getting the correct running time:
 
   1. Since both lists being merged are already sorted themselves, there
@@ -259,7 +257,7 @@ LinkedList<T> LinkedList<T>::merge(const LinkedList<T>& other) const {
   // So if this function was called as "A.merge(B)", then now, "left"
   // is a temporary copy of the "A" and "right" is a temporary copy
   // of the "B".
-  
+
   // We will also create an empty list called "merged" where we can build
   // the final result we want. This is what we will return at the end of
   // the function.
@@ -267,6 +265,51 @@ LinkedList<T> LinkedList<T>::merge(const LinkedList<T>& other) const {
 
   // -----------------------------------------------------------
   // TODO: Your code here!
+
+
+
+  if(left.empty())
+    merged = right;
+
+  else if(right.empty())
+    merged = left;
+
+  else
+  {
+
+    int right_size = right.size();
+    int left_size = left.size();
+
+    while(merged.size() < right_size + left_size)
+    {
+      if(left.empty())
+      {
+        merged.pushBack(right.front());
+        right.popFront();
+      }
+
+      else if(right.empty())
+      {
+        merged.pushBack(left.front());
+        left.popFront();
+      }
+
+      else if(left.front() <= right.front())
+      {
+        merged.pushBack(left.front());
+        left.popFront();
+      }
+
+      else if(left.front() >= right.front())
+      {
+        merged.pushBack(right.front());
+        right.popFront();
+      }
+    }
+  }
+
+
+
 
   // -----------------------------------------------------------
   // Please implement this function according to the description
@@ -298,4 +341,3 @@ LinkedList<T> LinkedList<T>::merge(const LinkedList<T>& other) const {
   // and an int.)
   return merged;
 }
-
