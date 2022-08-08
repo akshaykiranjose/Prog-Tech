@@ -20,8 +20,8 @@ int main(int argc, char* argv[])
         exit(0);
     }
     stacksize = atoi(argv[1]);
-
-    if ((stack = (int*)malloc(stacksize)) == NULL)
+    stack = (int*)malloc(stacksize*sizeof(int));
+    if (stack == NULL)
     {
         perror("malloc(): ");
         exit(0);
