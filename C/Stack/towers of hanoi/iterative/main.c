@@ -1,46 +1,73 @@
 #include "stack.h"
 #include<stdio.h>
+#include<stdlib.h>
 
 
-int main()
+int main(int argc, char* argv[])
 {
-    stack s ;
-    int x , err , val ;
-    char c = 'a';
-
-    init(&s);
-    
-    while( c!= 'e' && c!= 'E')
+    if (argc < 2)
     {
-        printf("U.PUSH \nO.POP \nP.PRINT \nT.TOP \nE.EXIT\n");
-        c = getchar();
-        switch(c)
-        {
-            case 'u':
-            case 'U':
-                scanf("%d", &x);
-                err = push(&s, x);
-                break;
+        printf("Enter Number of Disks\n");
+        exit(0);
+    }
 
-            case 'o':
-            case 'O':
-                err = pop(&s);
-                break;
+    FILE *fptr;
+    stack A,B,C;
+    init(&A);
+    init(&B);
+    init(&C);
 
-            case 'p':
-            case 'P':
-                printS(&s);
-                break;
+    fptr = fopen("toh.txt", "w");
+    
+    int n = atoi(argv[1]);
 
-            case 't':
-            case 'T':
-                err = top(&s , &val);
-                if(!err) printf("top: %d\n", val);
-                break;
+    for(int i=n; i>=1; i--)
+        push(&A, i);
+    
+    while(1)
+    {
+        if(peek(&A) < peek(&B) && !isEmpty(&A))
+            {
+            fprintf(fptr, "Pop disk %d from Stack A\n", peek(&A));
+            fprintf(fptr, "Push disk %d to Stack B\n", peek(&A));
+            push(&B, pop(&A));
+            }
 
-            default:
-                break;
-        }
+        else if (peek(&B) < peek(&A) && !isEmpty(&B))
+            {
+            fprintf(fptr, "Pop disk %d from Stack B\n", peek(&B));
+            fprintf(fptr, "Push disk %d to Stack A\n", peek(&B));
+            push(&A, pop(&B));
+            }
+
+        if(peek(&A) < peek(&C) && !isEmpty(&A) )
+            {
+            fprintf(fptr, "Pop disk %d from Stack A\n", peek(&A));
+            fprintf(fptr, "Push disk %d to Stack C\n", peek(&A));
+            push(&C, pop(&A));
+            }
+
+        else if(peek(&A) > peek(&C)  && !isEmpty(&C))
+            {
+            fprintf(fptr, "Pop disk %d from Stack C\n", peek(&C));
+            fprintf(fptr, "Push disk %d to Stack A\n", peek(&C));
+            push(&A, pop(&C));
+            }
+        
+        if(peek(&B) < peek(&C) && !isEmpty(&B))
+            {
+            fprintf(fptr, "Pop disk %d from Stack B\n", peek(&B));
+            fprintf(fptr, "Push disk %d to Stack C\n", peek(&B));
+            push(&C, pop(&B));
+            }
+
+        else if(peek(&B) > peek(&C) && !isEmpty(&C))
+            {
+            fprintf(fptr, "Pop disk %d from Stack C\n", peek(&C));
+            fprintf(fptr, "Push disk %d to Stack B\n", peek(&C));
+            push(&B, pop(&C));
+            }
+        if(C.tos == n-1) break;
     }
 
     return 0;

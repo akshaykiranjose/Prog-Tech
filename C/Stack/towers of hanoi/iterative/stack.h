@@ -14,7 +14,7 @@ void printS(stack *);
 
 int push(stack * , int) ;
 int pop(stack *) ;
-int top(stack *, int *) ;
+int peek(stack *) ;
 int isEmpty(stack *) ;
 int isFull(stack *) ; 
 

@@ -14,7 +14,8 @@ void printS(stack *s)
         return;
     }
     for(int i=s->tos; i >= 0; --i)
-        printf("stack[%d]: %d\n", i, s->data[i]);
+        printf("%d  ", s->data[i]);
+    printf("\n");
     return;
 }
 
@@ -32,22 +33,23 @@ int pop(stack *s)
 {
     if(!isEmpty(s))
     {
+        int elem = s->data[s->tos];
         s->data[s->tos--] = -1;
-        return OK;
+        return elem;
     }
     printf("STACK IS EMPTY\n");
     return ERROR;
 }
 
-int top(stack *s, int *val)
+int peek(stack *s)
 {
+    int val;
     if(!isEmpty(s))
     {
-        *val = s->data[s->tos];
-        return OK;
+        val = s->data[s->tos];
+        return val;
     }
-    printf("STACK IS EMPTY\n");
-    return ERROR;
+    return SIZE;
 }
 
 int isEmpty(stack *s)
