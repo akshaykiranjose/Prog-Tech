@@ -1,9 +1,9 @@
 #include<stdio.h>
 #include<conio.h>
 
-int A[] = {-1, 2, 12, 42, 65, 80, 96, 188};
-int B[] = {-3, 0, 1, 2, 3, 4, 179, 192};
-int C[16]; 
+int A[] = {-1};//, 2, 12, 42, 65, 80, 96, 188};
+int B[] = {-3};//, 0, 1, 2, 3, 4, 179, 192};
+int C[3] = {0,0,0}; 
 
 void merge(int A[], int m, int B[], int n, int C[])
 {
@@ -32,8 +32,8 @@ void merge(int A[], int m, int B[], int n, int C[])
 
 void main()
 {
-    merge(A, 8, B, 8, C);
-    for(int i=0; i<8+8; i++)
+    merge(A, 1, B, 1, C);
+    for(int i=0; i<3; i++)
         printf("%d ", C[i]);
 
 }
