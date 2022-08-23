@@ -12,13 +12,10 @@ struct node
     struct node* next;
 };
 
-int len = 0;
-struct node *head = NULL, *tail = NULL;
-
 int isEmpty();
 int returnTail();
 void printL();
-void find(struct node*);
+void findMid();
 
 void deleteFront();
 void deleteRear();

@@ -1,5 +1,5 @@
 #include "linked.h"
-#include<stdio.h>
+#include <stdio.h>
 
 int main()
 {
@@ -9,5 +9,5 @@ int main()
         
     printL();
     NL;
-    find(head);
+    findMid();
 }

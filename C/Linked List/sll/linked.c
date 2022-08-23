@@ -1,6 +1,9 @@
 #include "linked.h"
 
-void find(struct node* head)
+int len = 0;
+struct node *head = NULL, *tail = NULL;
+
+void findMid()
 {
     struct node* p1 = head, *p2 = head;
     while(p2)
