@@ -15,13 +15,26 @@ struct node *head = NULL, *tail = NULL;
 int isEmpty();
 int returnTail();
 void printL();
-
 void deleteFront();
 void deleteRear();
 void deletePos(int );
 void insertFront(int );
 void insertRear(int );
 void insertPos(int, int);
+void find(struct node* );
+
+int main()
+{
+    insertFront(1);
+    for (int i=0;i<100;i++)
+        insertRear(i+2);
+        
+    printL();
+    NL;
+    find(head);
+    NL;
+    printf("%d ", len);
+}
 
 void find(struct node* head)
 {
