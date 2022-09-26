@@ -1,0 +1,9 @@
+insert
+search
+preorder
+postorder
+inorder
+successor
+predecessor
+maximum
+minimum
