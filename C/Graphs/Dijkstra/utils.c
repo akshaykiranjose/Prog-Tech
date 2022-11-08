@@ -28,7 +28,7 @@ void updateVertex(vertex *ptr, int newdist, vertex* predecessor)
 void foundVertex(vertex* ptr)
 {
     ptr->found = 1;
-}s
+};
 
 listVertex* CreateLink(int dest, int edge)
 {
